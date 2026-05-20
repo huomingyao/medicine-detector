@@ -22,6 +22,7 @@
 
 - **YOLO**: 仅检测"bottle"（药瓶）目标，不直接输出药品名称
 - **OCR**: 使用GLM-OCR进行文字识别，默认从 `D:/GLM-OCR` 加载模型
+  - 详细部署指南：[GLM_OCR安装指南.md](GLM_OCR安装指南.md)
 - **LLM**: 阿里云百炼dashscope API，支持deepseek-r1、qwen-plus等模型
 - **结果融合**: 综合目标检测和文字识别结果，智能输出最终药品名称
 
@@ -58,6 +59,12 @@ set DASHSCOPE_API_KEY=your_api_key_here
 # 可选：配置LLM模型
 set LLM_MODEL=deepseek-r1
 ```
+
+### GLM-OCR 模型配置
+
+本系统使用 **GLM-OCR** 进行文字识别，模型路径 `D:/GLM-OCR`。
+
+详细部署指南见：[GLM_OCR安装指南.md](GLM_OCR安装指南.md)
 
 ## 使用方法
 
