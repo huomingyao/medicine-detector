@@ -21,9 +21,7 @@
 ### 技术特点
 
 - **YOLO**: 仅检测"bottle"（药瓶）目标，不直接输出药品名称
-- **OCR**: 支持两种模式
-  - `fast_mode=True`: 使用pytesseract（快速）
-  - `fast_mode=False`: 使用GLM本地模型（更准）
+- **OCR**: 使用GLM-OCR进行文字识别，默认从 `D:/GLM-OCR` 加载模型
 - **LLM**: 阿里云百炼dashscope API，支持deepseek-r1、qwen-plus等模型
 - **结果融合**: 综合目标检测和文字识别结果，智能输出最终药品名称
 
@@ -49,7 +47,10 @@
 Python >= 3.8
 
 # 安装依赖
-pip install ultralytics>=8.0.0 pillow>=10.0.0 dashscope>=1.14.0 fuzzywuzzy>=0.18.0 python-Levenshtein>=0.12.0 numpy>=1.20.0 tqdm>=4.60.0 pytesseract>=0.3.10
+pip install ultralytics>=8.0.0 pillow>=10.0.0 dashscope>=1.14.0 fuzzywuzzy>=0.18.0 python-Levenshtein>=0.12.0 numpy>=1.20.0 tqdm>=4.60.0 transformers>=4.30.0 torch>=2.0.0
+
+# 需要下载 GLM-OCR 模型并放到 D:/GLM-OCR 目录
+# 模型地址: https://huggingface.co/THU-ML/GLM-OCR
 
 # 配置阿里云百炼API密钥
 set DASHSCOPE_API_KEY=your_api_key_here
@@ -57,8 +58,6 @@ set DASHSCOPE_API_KEY=your_api_key_here
 # 可选：配置LLM模型
 set LLM_MODEL=deepseek-r1
 ```
-
-需要安装 [Tesseract OCR](https://github.com/UB-Mannheim/tesseract/wiki)。
 
 ## 使用方法
 
