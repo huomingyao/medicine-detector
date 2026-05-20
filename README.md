@@ -1,6 +1,8 @@
 # 医院配液中心药品智能识别系统
 
 <p align="center">
+  <a href="https://github.com/huomingyao/medicine-detector/stargazers"><img src="https://img.shields.io/github/stars/huomingyao/medicine-detector" alt="Stars"></a>
+  <a href="https://github.com/huomingyao/medicine-detector/issues"><img src="https://img.shields.io/github/issues/huomingyao/medicine-detector" alt="Issues"></a>
   <img src="https://img.shields.io/badge/Python-3.10%2B-blue" alt="Python">
 </p>
 
@@ -23,6 +25,12 @@
 | YOLO直接识别 | 速度快，无需OCR | 需要大量标注数据 | 药品包装标准化 |
 | YOLO+OCR+LLM | 精度高，可处理模糊文字 | 依赖OCR和LLM API | 文字清晰的药瓶 |
 | 向量库+多模态 | 无需训练，可扩展 | 依赖向量库 | 新药品快速上线 |
+
+### 详细文档
+
+- [YOLO直接识别方案](tree/yolo-direct) - 直接训练YOLO模型识别药品
+- [YOLO+OCR+LLM方案](tree/yolo+ocr) - 结合OCR和LLM的方案
+- [多模态方案](tree/multimodal) - 使用CLIP和向量库的方案
 
 ## 快速开始
 
@@ -47,11 +55,16 @@ git checkout yolo+ocr  # 或 yolo-direct, multimodal
 2. **如果需要识别文字、数据有限** → 使用 `yolo+ocr` 分支  
 3. **如果需要快速上线新药品** → 使用 `multimodal` 分支
 
-### 各分支详细文档
+## 项目结构
 
-- [YOLO直接识别](tree/yolo-direct) - README.md
-- [YOLO+OCR+LLM](tree/yolo+ocr) - README.md  
-- [多模态向量库](tree/multimodal) - README.md
+```
+medicine-detector/
+├── src/                    # 源代码
+├── yolo-direct/           # YOLO直接识别方案
+├── yolo+ocr/             # YOLO+OCR+LLM方案
+├── multimodal/           # 多模态方案
+└── docs/                # 文档
+```
 
 ## 许可证
 
