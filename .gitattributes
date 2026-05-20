@@ -1,3 +1,0 @@
-# 排除大文件
-*.pt filter=lfs diff=lfs merge=lfs -text
-yolov8x-v8.2.0.pt filter=lfs diff=lfs merge=lfs -text
