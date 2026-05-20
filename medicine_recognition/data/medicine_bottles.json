@@ -1,0 +1,95 @@
+{
+  "samples": [
+    {
+      "id": 1,
+      "image_path": "D:\\api_shibie\\medicine_recognition\\samples\\sample_20260519_185548_2f7c.jpg",
+      "text_label": "注射用阿奇霉素 0.1g 海南欣捷药业",
+      "vector_id": 0
+    },
+    {
+      "id": 2,
+      "image_path": "D:\\api_shibie\\medicine_recognition\\samples\\sample_20260519_185749_b064.jpg",
+      "text_label": "注射用美罗培南 0.5g 北大药业",
+      "vector_id": 1
+    },
+    {
+      "id": 3,
+      "image_path": "D:\\api_shibie\\medicine_recognition\\samples\\sample_20260519_185759_fa72.jpg",
+      "text_label": "注射用比阿培南 0.3g 正大天晴",
+      "vector_id": 2
+    },
+    {
+      "id": 4,
+      "image_path": "D:\\api_shibie\\medicine_recognition\\samples\\sample_20260519_185811_41b2.jpg",
+      "text_label": "注射用头孢呋辛钠 1.5g 四川制剂",
+      "vector_id": 3
+    },
+    {
+      "id": 5,
+      "image_path": "D:\\api_shibie\\medicine_recognition\\samples\\sample_20260519_185822_542b.jpg",
+      "text_label": "注射用伏立康唑 200mg 辉瑞制药",
+      "vector_id": 4
+    },
+    {
+      "id": 6,
+      "image_path": "D:\\api_shibie\\medicine_recognition\\samples\\sample_20260519_185832_7af3.jpg",
+      "text_label": "硫酸镁注射液 10ml 2.5g 天津药业",
+      "vector_id": 5
+    },
+    {
+      "id": 7,
+      "image_path": "D:\\api_shibie\\medicine_recognition\\samples\\sample_20260519_185840_6b1a.jpg",
+      "text_label": "复方氨基酸注射液18AA-II 250ml 18g 华润药业",
+      "vector_id": 6
+    },
+    {
+      "id": 8,
+      "image_path": "D:\\api_shibie\\medicine_recognition\\samples\\sample_20260519_185908_8985.jpg",
+      "text_label": "复方氨基酸注射液18AA-VII 250ml 18g 华润药业",
+      "vector_id": 7
+    },
+    {
+      "id": 9,
+      "image_path": "D:\\api_shibie\\medicine_recognition\\samples\\sample_20260519_202736_20c7.jpg",
+      "text_label": "注射用阿奇霉素 0.1g 海南欣捷药业",
+      "vector_id": 8
+    },
+    {
+      "id": 10,
+      "image_path": "D:\\api_shibie\\medicine_recognition\\samples\\sample_20260519_203729_6229.jpg",
+      "text_label": "注射用美罗培南 0.5g 北大药业",
+      "vector_id": 9
+    },
+    {
+      "id": 11,
+      "image_path": "D:\\api_shibie\\medicine_recognition\\samples\\sample_20260519_204123_9c59.jpg",
+      "text_label": "注射用伏立康唑 200mg 辉瑞制药",
+      "vector_id": 10
+    },
+    {
+      "id": 12,
+      "image_path": "D:\\api_shibie\\medicine_recognition\\samples\\sample_20260519_204147_f577.jpg",
+      "text_label": "注射用伏立康唑 200mg 辉瑞制药",
+      "vector_id": 11
+    },
+    {
+      "id": 13,
+      "image_path": "D:\\api_shibie\\medicine_recognition\\uploads\\sample_20260519_205331_1b0b.jpg",
+      "text_label": "注射用头孢呋辛钠 1.5g 四川制剂",
+      "vector_id": 12
+    },
+    {
+      "id": 14,
+      "image_path": "D:\\api_shibie\\medicine_recognition\\uploads\\sample_20260519_205541_3632.jpg",
+      "text_label": "硫酸镁注射液 10ml 2.5g 天津药业",
+      "vector_id": 13
+    },
+    {
+      "id": 15,
+      "image_path": "D:\\api_shibie\\medicine_recognition\\crops\\crop_20260519_212111_f52b.jpg",
+      "text_label": "测试样本 美罗培南",
+      "vector_id": 14
+    }
+  ],
+  "next_id": 16
+}
