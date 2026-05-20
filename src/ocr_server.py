@@ -217,23 +217,8 @@ def auto_correct_image(image: Image.Image) -> Image.Image:
     image = image.convert('RGB')
     correction_angle = 0
 
-    # 优先使用 pytesseract 读取方向
-    pytesseract = None
-    try:
-        pytesseract = importlib.import_module('pytesseract')  # type: ignore[import]
-    except Exception:
-        pytesseract = None
-
-    if pytesseract is not None:
-        try:
-            osd = pytesseract.image_to_osd(image, output_type=pytesseract.Output.DICT)
-            rotation = int(osd.get('rotate', 0))
-            if rotation in (0, 90, 180, 270):
-                correction_angle = rotation
-        except Exception:
-            correction_angle = detect_best_quadrant_rotation(image)
-    else:
-        correction_angle = detect_best_quadrant_rotation(image)
+    # 使用四角旋转检测
+    correction_angle = detect_best_quadrant_rotation(image)
 
     if correction_angle != 0:
         image = image.rotate(-correction_angle, expand=True, fillcolor=(255, 255, 255))
@@ -571,13 +556,12 @@ class OCRRecognizer:
             cls._instance = super().__new__(cls)
         return cls._instance
 
-    def __init__(self, fast_mode: bool = False):
+    def __init__(self):
         """
         初始化OCR识别器
         使用单例模式确保模型只加载一次
         """
         if not OCRRecognizer._initialized:
-            self.fast_mode = fast_mode
             self.LOCAL_MODEL_PATH = r"D:/GLM-OCR"
             self.DEVICE = "cpu"
             self.MAX_NEW_TOKENS = 1024
@@ -586,17 +570,7 @@ class OCRRecognizer:
             self.TOKENIZER_NAME = self.LOCAL_MODEL_PATH
             self.model: Any = None
             self.processor: Any = None
-            if not self.fast_mode:
-                torch = import_torch()
-                if torch.cuda.is_available():
-                    self.DEVICE = "cuda"
-                    print("使用GPU模式")
-                else:
-                    self.DEVICE = "cpu"
-                    print("使用CPU模式（未检测到GPU）")
-                self.load_model()
-            else:
-                print("跳过模型加载，启用 pytesseract 快速 OCR。")
+            self.load_model()
             OCRRecognizer._initialized = True
 
     def load_model(self):
@@ -726,9 +700,6 @@ class OCRRecognizer:
 
             image = preprocess_image_for_ocr(image)
 
-            if self.fast_mode or self.model is None:
-                return recognize_with_pytesseract(image)
-
             # GLM-OCR 使用 apply_chat_template 的方式处理输入
             messages = [
                 {
@@ -778,10 +749,7 @@ class OCRRecognizer:
                         use_cache=True
                     )
             except Exception as e:
-                print(f"OCR 模型识别失败：{e}，尝试使用 pytesseract 退回。")
-                fallback_text = recognize_with_pytesseract(image)
-                if fallback_text:
-                    return fallback_text
+                print(f"OCR 模型识别失败：{e}")
                 raise
             
             # 解码结果
@@ -794,7 +762,7 @@ class OCRRecognizer:
             result = output_text.strip()
             return result if result else ""
         except KeyboardInterrupt:
-            print("OCR 识别被用户中断。若等待时间过长，请使用 --fast_mode 快速模式。")
+            print("OCR 识别被用户中断。")
             raise
         except Exception as e:
             print(f"OCR 识别错误：{e}")

@@ -29,7 +29,6 @@ OUTPUT_PATH = os.path.join(OUTPUT_DIR, "result.json")
 # 识别参数
 USE_OCR = True  # 是否使用OCR
 USE_LLM = True  # 是否使用LLM推理
-FAST_MODE = False  # False=用GLM本地OCR, True=用pytesseract
 CONF_THRESHOLD = 0.25
 IOU_THRESHOLD = 0.45
 TARGET_CLASSES = ["bottle"]  # 只识别 bottle 类别
@@ -265,13 +264,12 @@ def main():
         drug_list=drug_list,
         conf_threshold=CONF_THRESHOLD,
         iou_threshold=IOU_THRESHOLD,
-        fast_mode=FAST_MODE,
         library_path=library_path,
         use_llm=use_library and USE_LLM,
         target_classes=TARGET_CLASSES
     )
 
-    print(f"OCR模式: {'快速(pytesseract)' if FAST_MODE else '本地GLM模型' if USE_OCR else '关闭'}")
+    print(f"OCR模式: {'GLM-OCR' if USE_OCR else '关闭'}")
 
     # 收集图片
     images = []

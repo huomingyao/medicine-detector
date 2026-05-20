@@ -246,7 +246,6 @@ class DrugRecognizer:
                  drug_list: List[str] = None,
                  conf_threshold: float = 0.25,
                  iou_threshold: float = 0.45,
-                 fast_mode: bool = True,
                  library_path: str = None,
                  use_llm: bool = True,
                  llm_model: str = None,
@@ -259,11 +258,10 @@ class DrugRecognizer:
             drug_list: 药品名称列表（用于匹配）
             conf_threshold: YOLO置信度阈值
             iou_threshold: YOLO IOU阈值
-            fast_mode: 是否使用快速模式 (True=pytesseract, False=GLM本地模型)
             library_path: 药瓶文字库文件路径
             use_llm: 是否使用LLM推理（默认True）
             llm_model: LLM模型名称
-            target_classes: YOLO目标类别列表（只对这些类别进行OCR识别，如 ["bottle", "bowl"]）
+            target_classes: YOLO目标类别列表
         """
         self.yolo_model_path = yolo_model_path
         self.drug_list = drug_list or []
@@ -302,8 +300,8 @@ class DrugRecognizer:
         self.iou_threshold = iou_threshold
 
         # 初始化本地OCR
-        logger.info(f"初始化本地OCR (fast_mode={fast_mode})")
-        self.ocr = OCRRecognizer(fast_mode=fast_mode)
+        logger.info("初始化本地OCR")
+        self.ocr = OCRRecognizer()
 
         # 加载文字库
         if library_path and os.path.exists(library_path):
