@@ -22,7 +22,7 @@
 **2. YOLO+OCR+LLM (yolo+ocr)**
 - YOLO检测药瓶 → OCR识别文字 → LLM推理
 - 优点：精度高，OCR+LLM双重校验
-- 缺点：依赖OCR和LLM API
+- 缺点：需要比较清晰的文字
 - 适用场景：文字清晰、需要高精度的产品
 
 **3. 向量库+多模态 (multimodal)**
