@@ -45,8 +45,11 @@
 ## 环境配置
 
 ```bash
+# Python 版本要求
+Python >= 3.8
+
 # 安装依赖
-pip install ultralytics pillow dashscope fuzzywuzzy
+pip install ultralytics>=8.0.0 pillow>=10.0.0 dashscope>=1.14.0 fuzzywuzzy>=0.18.0 python-Levenshtein>=0.12.0 numpy>=1.20.0 tqdm>=4.60.0 pytesseract>=0.3.10
 
 # 配置阿里云百炼API密钥
 set DASHSCOPE_API_KEY=your_api_key_here
