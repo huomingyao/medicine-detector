@@ -1,144 +1,58 @@
 # 医院配液中心药品智能识别系统
 
-基于 YOLO + OCR + 阿里云百炼 LLM 的药瓶识别系统。
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10%2B-blue" alt="Python">
+</p>
 
-## 系统功能
+本项目提供医院配液中心药品智能识别的多种技术方案实现。
 
-本系统用于识别图片中的药瓶，并识别药瓶上的药品名称。
+## 技术方案
 
-### 识别流程
+本项目实现了三种不同的药品识别技术方案：
 
-```
-输入图片 → YOLO检测药瓶 → 裁剪药瓶区域 → OCR识别文字 → 文本匹配/LLM推理 → 输出药品名称
-```
+| 分支 | 技术方案 | 描述 |
+|------|---------|------|
+| [yolo-direct](tree/yolo-direct) | YOLO直接识别 | 直接训练YOLO模型识别药品类别 |
+| [yolo+ocr](tree/yolo+ocr) | YOLO+OCR+LLM | YOLO检测药瓶 → OCR识别文字 → LLM推理 |
+| [multimodal](tree/multimodal) | 向量库+多模态 | CLIP视觉语义匹配 + 向量检索 |
 
-1. **YOLO检测**: 使用YOLOv8检测图片中的药瓶(bottle)位置
-2. **OCR识别**: 对检测到的药瓶区域进行文字识别
-3. **文本匹配**: 将识别文字与药品库进行匹配
-4. **LLM推理**: 使用阿里云百炼LLM进行语义推理（可选）
-5. **结果融合**: 综合YOLO和OCR结果，输出最终识别结果
+### 方案对比
 
-### 技术特点
+| 方案 | 优点 | 缺点 | 适用场景 |
+|------|-----|------|----------|
+| YOLO直接识别 | 速度快，无需OCR | 需要大量标注数据 | 药品包装标准化 |
+| YOLO+OCR+LLM | 精度高，可处理模糊文字 | 依赖OCR和LLM API | 文字清晰的药瓶 |
+| 向量库+多模态 | 无需训练，可扩展 | 依赖向量库 | 新药品快速上线 |
 
-- **YOLO**: 仅检测"bottle"（药瓶）目标，不直接输出药品名称
-- **OCR**: 使用GLM-OCR进行文字识别，默认从 `D:/GLM-OCR` 加载模型
-  - 详细部署指南：[GLM_OCR安装指南.md](GLM_OCR安装指南.md)
-- **LLM**: 阿里云百炼dashscope API，支持deepseek-r1、qwen-plus等模型
-- **结果融合**: 综合目标检测和文字识别结果，智能输出最终药品名称
+## 快速开始
 
-## 文件说明
-
-```
-├── src/
-│   ├── drug_recognizer.py    # 主识别器（YOLO+OCR+LLM）
-│   ├── ocr_server.py      # OCR文字识别
-│   ├── text_matcher.py  # 文本匹配
-│   └── result_fuser.py  # 结果融合
-├── inference.py          # 命令行推理工具
-├── build_drug_library.py # 构建药品文字库
-├── classes.txt         # 药品列表
-├── drug_library.json   # 药品文字库
-└── yolov8x-v8.2.0.pt # YOLO模型
-```
-
-## 环境配置
+### 克隆项目
 
 ```bash
-# Python 版本要求
-Python >= 3.8
+git clone https://github.com/huomingyao/medicine-detector.git
+cd medicine-detector
 
-# 安装依赖
-pip install ultralytics>=8.0.0 pillow>=10.0.0 dashscope>=1.14.0 fuzzywuzzy>=0.18.0 python-Levenshtein>=0.12.0 numpy>=1.20.0 tqdm>=4.60.0 transformers>=4.30.0 torch>=2.0.0
+# 查看所有分支
+git branch -a
 
-# 需要下载 GLM-OCR 模型并放到 D:/GLM-OCR 目录
-# 模型地址: https://huggingface.co/THU-ML/GLM-OCR
-
-# 配置阿里云百炼API密钥
-set DASHSCOPE_API_KEY=your_api_key_here
-
-# 可选：配置LLM模型
-set LLM_MODEL=deepseek-r1
+# 切换到指定方案
+git checkout yolo+ocr  # 或 yolo-direct, multimodal
 ```
 
-### GLM-OCR 模型配置
+### 选择技术方案
 
-本系统使用 **GLM-OCR** 进行文字识别，模型路径 `D:/GLM-OCR`。
+根据你的场景选择合适的分支：
 
-详细部署指南见：[GLM_OCR安装指南.md](GLM_OCR安装指南.md)
+1. **如果药品包装统一、数据充足** → 使用 `yolo-direct` 分支
+2. **如果需要识别文字、数据有限** → 使用 `yolo+ocr` 分支  
+3. **如果需要快速上线新药品** → 使用 `multimodal` 分支
 
-## 使用方法
+### 各分支详细文档
 
-### 命令行推理
+- [YOLO直接识别](tree/yolo-direct) - README.md
+- [YOLO+OCR+LLM](tree/yolo+ocr) - README.md  
+- [多模态向量库](tree/multimodal) - README.md
 
-编辑 `inference.py` 中的配置区域：
+## 许可证
 
-```python
-YOLO_MODEL_PATH = "yolov8x-v8.2.0.pt"
-IMAGE_PATH = "test.jpg"  # 或图片目录
-USE_OCR = True
-USE_LLM = True
-```
-
-运行：
-```bash
-python inference.py
-```
-
-### Python API
-
-```python
-from src.drug_recognizer import DrugRecognizer
-
-recognizer = DrugRecognizer(
-    yolo_model_path='yolov8x-v8.2.0.pt',
-    library_path='drug_library.json',
-    use_llm=True
-)
-
-result = recognizer.recognize('test.jpg', use_ocr=True)
-
-for fused in result.fused_results:
-    print(f"药品: {fused.final_drug}")
-```
-
-## 输出示例
-
-```json
-{
-  "image_path": "test.jpg",
-  "detection_count": 2,
-  "detections": [
-    {
-      "drug": "注射用阿奇霉素",
-      "confidence": 0.85,
-      "decision": "yolo+ocr",
-      "source": "YOLO检测到药瓶，OCR识别文字匹配",
-      "yolo_conf": 0.92,
-      "ocr_conf": 0.78
-    }
-  ],
-  "time": {
-    "yolo": 0.15,
-    "ocr": 1.20,
-    "llm": 0.80,
-    "total": 2.15
-  }
-}
-```
-
-## 调用LLM说明
-
-当 OCR 识别文字模糊或不准确时，系统会调用阿里云百炼的 LLM 进行语义推理：
-
-```python
-# 构建提示词
-messages = [
-    {"role": "user", "content": "请根据OCR识别到的文字，从文字库中找出匹配的药品..."}
-]
-
-# 调用API
-from dashscope import Generation
-response = Generation.call(model='deepseek-r1', messages=messages)
-```
-
-API密钥获取：https://dashscope.console.aliyun.com/
+MIT License
