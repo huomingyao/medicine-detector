@@ -7,7 +7,7 @@
 | 分支 | 技术方案 | 适用场景 |
 |------|---------|---------|
 | [yolo-direct](tree/yolo-direct) | 直接训练YOLO模型 | 药品包装统一、标准化的产品 |
-| [yolo+ocr](tree/yolo+ocr) | YOLO+OCR+LLM | 文字清晰、需要高精度的产品 |
+| [yolo+ocr](tree/yolo%2Bocr) | YOLO+OCR+LLM | 文字清晰、需要高精度的产品 |
 | [multimodal](tree/multimodal) | 向量库+多模态 | 药品种类多、需要快速迭代的产品 |
 
 ### 方案说明
