@@ -6,9 +6,9 @@
 
 | 分支 | 技术方案 | 适用场景 |
 |------|---------|---------|
-| [yolo-direct](tree/yolo-direct) | 直接训练YOLO模型 | 药品包装统一、标准化的产品 |
-| [yolo-ocr](tree/yolo-ocr) | YOLO+OCR+LLM | 文字清晰、需要高精度的产品 |
-| [multimodal](tree/multimodal) | 向量库+多模态 | 药品种类多、需要快速迭代的产品 |
+| [yolo-direct](https://github.com/huomingyao/medicine-detector/tree/yolo-direct) | 直接训练YOLO模型 | 药品包装统一、标准化的产品 |
+| [yolo+ocr](https://github.com/huomingyao/medicine-detector/tree/yolo+ocr) | YOLO+OCR+LLM | 文字清晰、需要高精度的产品 |
+| [multimodal](https://github.com/huomingyao/medicine-detector/tree/multimodal) | 向量库+多模态 | 药品种类多、需要快速迭代的产品 |
 
 ### 方案说明
 
@@ -18,7 +18,7 @@
 - 缺点：需要大量标注数据
 - 适用场景：药品包装统一、标准化的产品
 
-**2. YOLO+OCR+LLM (yolo-ocr)**
+**2. YOLO+OCR+LLM (yolo+ocr)**
 - YOLO检测药瓶 → OCR识别文字 → LLM推理
 - 优点：精度高，OCR+LLM双重校验
 - 缺点：需要比较清晰的文字
@@ -38,7 +38,7 @@ git clone https://github.com/huomingyao/medicine-detector.git
 cd medicine-detector
 
 # 切换到指定方案分支
-git checkout yolo-ocr     # YOLO+OCR+LLM方案
+git checkout yolo+ocr     # YOLO+OCR+LLM方案
 # 或
 git checkout multimodal # 向量库+多模态方案
 # 或
@@ -50,5 +50,5 @@ git checkout yolo-direct # YOLO直接识别方案
 | 场景 | 推荐方案 |
 |------|---------|
 | 药品包装统一、标准化的产品 | yolo-direct |
-| 文字清晰、需要高精度 | yolo-ocr |
+| 文字清晰、需要高精度 | yolo+ocr |
 | 药品种类多、需要快速迭代 | multimodal |
